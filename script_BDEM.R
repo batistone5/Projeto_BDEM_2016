@@ -96,6 +96,12 @@ summary(dados_sim_2$IDADE)
 
 # Ao terminar a Tarefa 5 commit com a mensagem "script BDEM - SIM - tarefas 1 a 5" e envie para o repositório Projeto_BDEM_2016
 
+dados_sim_2$SEXO[dados_sim_2$SEXO == 0] = NA
+dados_sim_2$ESC2010[dados_sim_2$ESC2010 == 9] = NA
+dados_sim_2$TPMORTEOCO[dados_sim_2$TPMORTEOCO == 9] = NA
+
+dados_sim_2$IDADE[dados_sim_2$IDADE == 999] = NA
+
 
 # Tarefa 6. Atribuir legendas para as categorias das variáveis qualitativas investigadas na tarefa 4.
 # Exemplo: dados_sim_2$TIPOBITO = factor(dados_sim_2$TIPOBITO, levels = c(1,2), labels = c("Fetal", "Não fetal")
