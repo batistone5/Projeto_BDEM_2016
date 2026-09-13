@@ -564,14 +564,17 @@ SIM_RS = data.frame(
 )
 
 
-#Criando o CSV
-write.csv2(dados_BDEM, "SIM_RS.csv", row.names = FALSE)
-
-
 # Ao terminar a Tarefa 7 commit com a mensagem "script BDEM - SIM - tarefas 1 a 7" e envie para o repositório Projeto_BDEM_2016
 
 
 # Tarefa 8. Exportar o banco de dados com o nome SIM_UF.csv (Exemplo: SIM_RJ.csv)
+
+#Criando o CSV
+write.csv2(
+  dados_BDEM,
+  "SIM_RS.csv",
+  row.names = FALSE
+)
 
 # Ao terminar a Tarefa 8 fazer um commit com o comentário "dados SIM_UF 2016 e script - SIM - tarefas 1 a 8"  e envie para o repositório Projeto_BDEM_2016
 
