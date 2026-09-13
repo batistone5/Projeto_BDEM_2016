@@ -127,6 +127,446 @@ dados_sim_2$TPMORTEOCO = factor(dados_sim_2$TPMORTEOCO, levels = c(1,2,3,4,5,8),
 # Tarefa 7. Criar um banco de dados, de nome SIM_UF.csv (Exemplo: SIM_RJ.csv), contendo as variáveis listadas no arquivo “Variáveis - Projeto - Tarefa 7 - SIM.pdf”
 # Atenção: a ordem das variáveis do arquivo deve ser respeitada
 
+# ANO
+ANO = 2016
+
+# NIVEL
+NIVEL = "UF"
+
+# CODMUNRES
+CODMUNRES = "43"
+
+# TO
+TO = nrow(dados_sim_2)
+
+# TORC
+TORC = sum(
+  complete.cases(
+    dados_sim[substr(dados_sim$CODMUNRES, 1, 2) == "43", ]
+  )
+)
+
+# TORCR
+TORCR = sum(complete.cases(dados_sim_2))
+
+# TO_NN
+TO_NN = sum(
+  substr(as.character(dados_sim_2$CAUSABAS), 1, 1) %in%
+    c("V", "W", "X", "Y"),
+  na.rm = TRUE
+)
+
+# TO_N
+TO_N = sum(
+  !substr(as.character(dados_sim_2$CAUSABAS), 1, 1) %in%
+    c("V", "W", "X", "Y"),
+  na.rm = TRUE
+)
+
+# TO_CB_I
+TO_CB_I = sum(
+  substr(as.character(dados_sim_2$CAUSABAS), 1, 1) %in%
+    c("A", "B"),
+  na.rm = TRUE
+)
+
+# TO_CB_N
+TO_CB_N = sum(
+  substr(as.character(dados_sim_2$CAUSABAS), 1, 1) %in%
+    c("C", "D"),
+  na.rm = TRUE
+)
+
+# TO_CB_C
+TO_CB_C = sum(
+  substr(as.character(dados_sim_2$CAUSABAS), 1, 1) == "I",
+  na.rm = TRUE
+)
+
+# TO_CB_R
+TO_CB_R = sum(
+  substr(as.character(dados_sim_2$CAUSABAS), 1, 1) == "J",
+  na.rm = TRUE
+)
+
+# TO_CB_O
+TO_CB_O = TO_N - TO_CB_I - TO_CB_N - TO_CB_C - TO_CB_R
+
+# TO_M
+TO_M = sum(
+  dados_sim_2$SEXO == "Masculino",
+  na.rm = TRUE
+)
+
+# TO_F
+TO_F = sum(
+  dados_sim_2$SEXO == "Feminino",
+  na.rm = TRUE
+)
+
+# TO_F_IF
+TO_F_IF = sum(
+  dados_sim_2$SEXO == "Feminino" &
+    as.numeric(substr(as.character(dados_sim_2$IDADE), 1, 1)) == 4 &
+    as.numeric(substr(as.character(dados_sim_2$IDADE), 2, 3)) >= 15 &
+    as.numeric(substr(as.character(dados_sim_2$IDADE), 2, 3)) <= 49,
+  na.rm = TRUE
+)
+
+# TO_FT
+TO_FT = sum(
+  dados_sim_2$TIPOBITO == "Fetal",
+  na.rm = TRUE
+)
+
+# TO_NT
+TO_NT = sum(
+  (
+    as.numeric(substr(as.character(dados_sim_2$IDADE), 1, 1)) == 0 |
+      (
+        as.numeric(substr(as.character(dados_sim_2$IDADE), 1, 1)) == 1 &
+          as.numeric(substr(as.character(dados_sim_2$IDADE), 2, 3)) <= 23
+      ) |
+      (
+        as.numeric(substr(as.character(dados_sim_2$IDADE), 1, 1)) == 2 &
+          as.numeric(substr(as.character(dados_sim_2$IDADE), 2, 3)) <= 27
+      )
+  ),
+  na.rm = TRUE
+)
+
+# TO_NT_P
+TO_NT_P = sum(
+  (
+    as.numeric(substr(as.character(dados_sim_2$IDADE), 1, 1)) == 0 |
+      (
+        as.numeric(substr(as.character(dados_sim_2$IDADE), 1, 1)) == 1 &
+          as.numeric(substr(as.character(dados_sim_2$IDADE), 2, 3)) <= 23
+      ) |
+      (
+        as.numeric(substr(as.character(dados_sim_2$IDADE), 1, 1)) == 2 &
+          as.numeric(substr(as.character(dados_sim_2$IDADE), 2, 3)) <= 6
+      )
+  ),
+  na.rm = TRUE
+)
+
+# TO_NT_T
+TO_NT_T = sum(
+  as.numeric(substr(as.character(dados_sim_2$IDADE), 1, 1)) == 2 &
+    as.numeric(substr(as.character(dados_sim_2$IDADE), 2, 3)) >= 7 &
+    as.numeric(substr(as.character(dados_sim_2$IDADE), 2, 3)) <= 27,
+  na.rm = TRUE
+)
+
+# TO_PNT
+TO_PNT = sum(
+  (
+    as.numeric(substr(as.character(dados_sim_2$IDADE), 1, 1)) == 2 &
+      as.numeric(substr(as.character(dados_sim_2$IDADE), 2, 3)) >= 28
+  ) |
+    (
+      as.numeric(substr(as.character(dados_sim_2$IDADE), 1, 1)) == 3 &
+        as.numeric(substr(as.character(dados_sim_2$IDADE), 2, 3)) >= 1 &
+        as.numeric(substr(as.character(dados_sim_2$IDADE), 2, 3)) <= 11
+    ),
+  na.rm = TRUE
+)
+
+# TONT_B
+TONT_B = sum(
+  (
+    as.numeric(substr(as.character(dados_sim_2$IDADE), 1, 1)) == 0 |
+      (
+        as.numeric(substr(as.character(dados_sim_2$IDADE), 1, 1)) == 1 &
+          as.numeric(substr(as.character(dados_sim_2$IDADE), 2, 3)) <= 23
+      ) |
+      (
+        as.numeric(substr(as.character(dados_sim_2$IDADE), 1, 1)) == 2 &
+          as.numeric(substr(as.character(dados_sim_2$IDADE), 2, 3)) <= 27
+      )
+  ) &
+    dados_sim_2$RACACOR == "Branca",
+  na.rm = TRUE
+)
+
+# TONT_PT
+TONT_PT = sum(
+  (
+    as.numeric(substr(as.character(dados_sim_2$IDADE), 1, 1)) == 0 |
+      (
+        as.numeric(substr(as.character(dados_sim_2$IDADE), 1, 1)) == 1 &
+          as.numeric(substr(as.character(dados_sim_2$IDADE), 2, 3)) <= 23
+      ) |
+      (
+        as.numeric(substr(as.character(dados_sim_2$IDADE), 1, 1)) == 2 &
+          as.numeric(substr(as.character(dados_sim_2$IDADE), 2, 3)) <= 27
+      )
+  ) &
+    dados_sim_2$RACACOR == "Preta",
+  na.rm = TRUE
+)
+
+# TONT_A
+TONT_A = sum(
+  (
+    as.numeric(substr(as.character(dados_sim_2$IDADE), 1, 1)) == 0 |
+      (
+        as.numeric(substr(as.character(dados_sim_2$IDADE), 1, 1)) == 1 &
+          as.numeric(substr(as.character(dados_sim_2$IDADE), 2, 3)) <= 23
+      ) |
+      (
+        as.numeric(substr(as.character(dados_sim_2$IDADE), 1, 1)) == 2 &
+          as.numeric(substr(as.character(dados_sim_2$IDADE), 2, 3)) <= 27
+      )
+  ) &
+    dados_sim_2$RACACOR == "Amarela",
+  na.rm = TRUE
+)
+
+# TONT_PD
+TONT_PD = sum(
+  (
+    as.numeric(substr(as.character(dados_sim_2$IDADE), 1, 1)) == 0 |
+      (
+        as.numeric(substr(as.character(dados_sim_2$IDADE), 1, 1)) == 1 &
+          as.numeric(substr(as.character(dados_sim_2$IDADE), 2, 3)) <= 23
+      ) |
+      (
+        as.numeric(substr(as.character(dados_sim_2$IDADE), 1, 1)) == 2 &
+          as.numeric(substr(as.character(dados_sim_2$IDADE), 2, 3)) <= 27
+      )
+  ) &
+    dados_sim_2$RACACOR == "Parda",
+  na.rm = TRUE
+)
+
+# TONT_I
+TONT_I = sum(
+  (
+    as.numeric(substr(as.character(dados_sim_2$IDADE), 1, 1)) == 0 |
+      (
+        as.numeric(substr(as.character(dados_sim_2$IDADE), 1, 1)) == 1 &
+          as.numeric(substr(as.character(dados_sim_2$IDADE), 2, 3)) <= 23
+      ) |
+      (
+        as.numeric(substr(as.character(dados_sim_2$IDADE), 1, 1)) == 2 &
+          as.numeric(substr(as.character(dados_sim_2$IDADE), 2, 3)) <= 27
+      )
+  ) &
+    dados_sim_2$RACACOR == "Indígena",
+  na.rm = TRUE
+)
+
+# TO_MT
+TO_MT = sum(
+  dados_sim_2$SEXO == "Feminino" &
+    dados_sim_2$TPMORTEOCO %in% c(
+      "Na gravidez",
+      "No parto",
+      "No abortamento",
+      "Até 42 dias após o término do parto",
+      "De 43 dias a 1 ano após o término da gestação"
+    ),
+  na.rm = TRUE
+)
+
+# TO_MT_DG
+TO_MT_DG = sum(
+  dados_sim_2$SEXO == "Feminino" &
+    dados_sim_2$TPMORTEOCO == "Na gravidez",
+  na.rm = TRUE
+)
+
+# TO_MT_PT
+TO_MT_PT = sum(
+  dados_sim_2$SEXO == "Feminino" &
+    dados_sim_2$TPMORTEOCO == "No parto",
+  na.rm = TRUE
+)
+
+# TO_MT_AB
+TO_MT_AB = sum(
+  dados_sim_2$SEXO == "Feminino" &
+    dados_sim_2$TPMORTEOCO == "No abortamento",
+  na.rm = TRUE
+)
+
+# TO_MT_42
+TO_MT_42 = sum(
+  dados_sim_2$SEXO == "Feminino" &
+    dados_sim_2$TPMORTEOCO ==
+    "Até 42 dias após o término do parto",
+  na.rm = TRUE
+)
+
+# TO_MT_43
+TO_MT_43 = sum(
+  dados_sim_2$SEXO == "Feminino" &
+    dados_sim_2$TPMORTEOCO ==
+    "De 43 dias a 1 ano após o término da gestação",
+  na.rm = TRUE
+)
+
+# TO_MT_P
+TO_MT_P = sum(
+  dados_sim_2$SEXO == "Feminino" &
+    dados_sim_2$TPMORTEOCO %in% c(
+      "Na gravidez",
+      "No parto",
+      "No abortamento",
+      "Até 42 dias após o término do parto"
+    ),
+  na.rm = TRUE
+)
+
+# TO_MT_P_I
+TO_MT_P_I = sum(
+  dados_sim_2$SEXO == "Feminino" &
+    dados_sim_2$TPMORTEOCO %in% c(
+      "Na gravidez",
+      "No parto",
+      "No abortamento",
+      "Até 42 dias após o término do parto"
+    ) &
+    as.numeric(substr(as.character(dados_sim_2$IDADE), 1, 1)) == 4 &
+    as.numeric(substr(as.character(dados_sim_2$IDADE), 2, 3)) >= 15 &
+    as.numeric(substr(as.character(dados_sim_2$IDADE), 2, 3)) <= 49,
+  na.rm = TRUE
+)
+
+# TO_MT_P_ES
+TO_MT_P_ES = sum(
+  dados_sim_2$SEXO == "Feminino" &
+    dados_sim_2$TPMORTEOCO %in% c(
+      "Na gravidez",
+      "No parto",
+      "No abortamento",
+      "Até 42 dias após o término do parto"
+    ) &
+    dados_sim_2$ESC2010 == "Sem escolaridade",
+  na.rm = TRUE
+)
+
+# TO_MT_P_EFI
+TO_MT_P_EFI = sum(
+  dados_sim_2$SEXO == "Feminino" &
+    dados_sim_2$TPMORTEOCO %in% c(
+      "Na gravidez",
+      "No parto",
+      "No abortamento",
+      "Até 42 dias após o término do parto"
+    ) &
+    dados_sim_2$ESC2010 ==
+    "Fundamental I (1ª a 4ª série)",
+  na.rm = TRUE
+)
+
+# TO_MT_P_EFII
+TO_MT_P_EFII = sum(
+  dados_sim_2$SEXO == "Feminino" &
+    dados_sim_2$TPMORTEOCO %in% c(
+      "Na gravidez",
+      "No parto",
+      "No abortamento",
+      "Até 42 dias após o término do parto"
+    ) &
+    dados_sim_2$ESC2010 ==
+    "Fundamental II (5ª a 8ª série)",
+  na.rm = TRUE
+)
+
+# TO_MT_P_EM
+TO_MT_P_EM = sum(
+  dados_sim_2$SEXO == "Feminino" &
+    dados_sim_2$TPMORTEOCO %in% c(
+      "Na gravidez",
+      "No parto",
+      "No abortamento",
+      "Até 42 dias após o término do parto"
+    ) &
+    dados_sim_2$ESC2010 ==
+    "Médio (antigo 2º grau)",
+  na.rm = TRUE
+)
+
+# TO_MT_P_ESI
+TO_MT_P_ESI = sum(
+  dados_sim_2$SEXO == "Feminino" &
+    dados_sim_2$TPMORTEOCO %in% c(
+      "Na gravidez",
+      "No parto",
+      "No abortamento",
+      "Até 42 dias após o término do parto"
+    ) &
+    dados_sim_2$ESC2010 ==
+    "Superior incompleto",
+  na.rm = TRUE
+)
+
+# TO_MT_ESC
+TO_MT_ESC = sum(
+  dados_sim_2$SEXO == "Feminino" &
+    dados_sim_2$TPMORTEOCO %in% c(
+      "Na gravidez",
+      "No parto",
+      "No abortamento",
+      "Até 42 dias após o término do parto"
+    ) &
+    dados_sim_2$ESC2010 ==
+    "Superior completo",
+  na.rm = TRUE
+)
+
+#Criando o Banco de Dados
+
+SIM_RS = data.frame(
+  ANO,
+  NIVEL,
+  CODMUNRES,
+  TO,
+  TORC,
+  TORCR,
+  TO_NN,
+  TO_N,
+  TO_CB_I,
+  TO_CB_N,
+  TO_CB_C,
+  TO_CB_R,
+  TO_CB_O,
+  TO_M,
+  TO_F,
+  TO_F_IF,
+  TO_FT,
+  TO_NT,
+  TO_NT_P,
+  TO_NT_T,
+  TO_PNT,
+  TONT_B,
+  TONT_PT,
+  TONT_A,
+  TONT_PD,
+  TONT_I,
+  TO_MT,
+  TO_MT_DG,
+  TO_MT_PT,
+  TO_MT_AB,
+  TO_MT_42,
+  TO_MT_43,
+  TO_MT_P,
+  TO_MT_P_I,
+  TO_MT_P_ES,
+  TO_MT_P_EFI,
+  TO_MT_P_EFII,
+  TO_MT_P_EM,
+  TO_MT_P_ESI,
+  TO_MT_ESC
+)
+
+
+#Criando o CSV
+write.csv2(dados_BDEM, "SIM_RS.csv", row.names = FALSE)
+
 
 # Ao terminar a Tarefa 7 commit com a mensagem "script BDEM - SIM - tarefas 1 a 7" e envie para o repositório Projeto_BDEM_2016
 
