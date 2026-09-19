@@ -587,11 +587,22 @@ write.csv2(
 # NÃO altere as linhas de qualquer outra ETAPA do script e nem do cabeçalho
 
 # Tarefa 1. Leitura do banco de dados SINASC_2016 com 2857800 linhas e 61 colunas com o nome de dados_sinasc
+dados_sinasc = read.csv(
+  "SINASC_2016.csv",
+  sep = ";",
+  header = TRUE
+)
+
 # Verificar se a leitura foi feita corretamente e a estrutura dos dados
+dim(dados_sinasc)
+
+str(dados_sinasc)
+
 # Por uma questão de padronização coloque todos os nomes das variáveis em letra maiúscula,
 # usando o comando names(dados_sinasc) = toupper(names(dados_sinasc))
+names(dados_sinasc) = toupper(names(dados_sinasc))
 
-
+str(dados_sinasc)
 # Ao terminar a Tarefa 1 commit com a mensagem "script BDEM - SINASC - tarefa 1" e envie para o repositório Projeto_BDEM_2016
 
 # Tarefa 2. Reduzir dados_sinasc apenas para as colunas que serão utilizadas, nomeando este novo banco de dados como dados_sinasc_1
