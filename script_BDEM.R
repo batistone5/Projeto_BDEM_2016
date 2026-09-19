@@ -648,8 +648,62 @@ nrow(dados_sinasc_2)
 
 # Tarefa 4. Verificar em dados_sinasc_2 a frequência das categorias das seguintes variáveis: LOCNASC, ESTCIVMAE, GESTACAO, GRAVIDEZ, PARTO,
 # SEXO, RACACOR, IDANOMAL, ESCMAE2010, RACACORMAE, TPAPRESENT, TPROBSON, PARIDADE, KOTELCHUCK
+
+# LOCNASC
+table(dados_sinasc_2$LOCNASC, useNA = "ifany")
+
+# ESTCIVMAE
+table(dados_sinasc_2$ESTCIVMAE, useNA = "ifany")
+
+# GESTACAO
+table(dados_sinasc_2$GESTACAO, useNA = "ifany")
+
+# GRAVIDEZ
+table(dados_sinasc_2$GRAVIDEZ, useNA = "ifany")
+
+# PARTO
+table(dados_sinasc_2$PARTO, useNA = "ifany")
+
+# SEXO
+table(dados_sinasc_2$SEXO, useNA = "ifany")
+
+# RACACOR
+table(dados_sinasc_2$RACACOR, useNA = "ifany")
+
+# IDANOMAL
+table(dados_sinasc_2$IDANOMAL, useNA = "ifany")
+
+# ESCMAE2010
+table(dados_sinasc_2$ESCMAE2010, useNA = "ifany")
+
+# RACACORMAE
+table(dados_sinasc_2$RACACORMAE, useNA = "ifany")
+
+# TPAPRESENT
+table(dados_sinasc_2$TPAPRESENT, useNA = "ifany")
+
+# TPROBSON
+table(dados_sinasc_2$TPROBSON, useNA = "ifany")
+
+# PARIDADE
+table(dados_sinasc_2$PARIDADE, useNA = "ifany")
+
+# KOTELCHUCK
+table(dados_sinasc_2$KOTELCHUCK, useNA = "ifany")
+
 # Avalie também os valores das variáveis quantitativas de IDADEMAE, SEMAGESTAC, APGAR5 e PESO
 
+# IDADEMAE
+summary(dados_sinasc_2$IDADEMAE)
+
+# SEMAGESTAC
+summary(dados_sinasc_2$SEMAGESTAC)
+
+# APGAR5
+summary(dados_sinasc_2$APGAR5)
+
+# PESO
+summary(dados_sinasc_2$PESO)
 
 # Ao terminar a Tarefa 4 commit com a mensagem "script BDEM - SINASC - tarefas 1 a 4" e envie para o repositório Projeto_BDEM_2016
 
