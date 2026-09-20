@@ -781,6 +781,126 @@ dados_sinasc_2$PESO[dados_sinasc_2$PESO == "9999"] = NA
 # ATENçÃO: 1. Na hora de escrever os labels, somente a primeira letra da legenda é maiúscula. Exemplo para SEXO: Feminino e Masculino
 #          2. Nesta Tarefa 6 não crie novas variáveis dentro do banco de dados
 
+# Tarefa 6. Atribuir legendas para as categorias das variáveis qualitativas
+
+# LOCNASC
+dados_sinasc_2$LOCNASC = factor(dados_sinasc_2$LOCNASC,
+                                levels = c(1, 2, 3, 4, 5),
+                                labels = c("Hospital",
+                                           "Outros estabelecimentos de saúde",
+                                           "Domicílio",
+                                           "Outros",
+                                           "Aldeia indígena"))
+
+# ESTCIVMAE
+dados_sinasc_2$ESTCIVMAE = factor(dados_sinasc_2$ESTCIVMAE,
+                                  levels = c(1, 2, 3, 4, 5),
+                                  labels = c("Solteira",
+                                             "Casada",
+                                             "Viúva",
+                                             "Separada ou divorciada",
+                                             "União estável"))
+
+# GESTACAO
+dados_sinasc_2$GESTACAO = factor(dados_sinasc_2$GESTACAO,
+                                 levels = c(1, 2, 3, 4, 5, 6),
+                                 labels = c("Menos de 22 semanas",
+                                            "De 22 a 27 semanas",
+                                            "De 28 a 31 semanas",
+                                            "De 32 a 36 semanas",
+                                            "De 37 a 41 semanas",
+                                            "42 semanas ou mais"))
+
+# GRAVIDEZ
+dados_sinasc_2$GRAVIDEZ = factor(dados_sinasc_2$GRAVIDEZ,
+                                 levels = c(1, 2, 3),
+                                 labels = c("Única",
+                                            "Dupla",
+                                            "Tripla ou mais"))
+
+# PARTO
+dados_sinasc_2$PARTO = factor(dados_sinasc_2$PARTO,
+                              levels = c(1, 2),
+                              labels = c("Vaginal",
+                                         "Cesáreo"))
+
+# SEXO
+dados_sinasc_2$SEXO = factor(dados_sinasc_2$SEXO,
+                             levels = c(1, 2),
+                             labels = c("Masculino",
+                                        "Feminino"))
+
+# RACACOR
+dados_sinasc_2$RACACOR = factor(dados_sinasc_2$RACACOR,
+                                levels = c(1, 2, 3, 4, 5),
+                                labels = c("Branca",
+                                           "Preta",
+                                           "Amarela",
+                                           "Parda",
+                                           "Indígena"))
+
+# IDANOMAL
+dados_sinasc_2$IDANOMAL = factor(dados_sinasc_2$IDANOMAL,
+                                 levels = c(1, 2),
+                                 labels = c("Sim",
+                                            "Não"))
+
+# ESCMAE2010
+dados_sinasc_2$ESCMAE2010 = factor(dados_sinasc_2$ESCMAE2010,
+                                   levels = c(0, 1, 2, 3, 4, 5),
+                                   labels = c("Sem escolaridade",
+                                              "Fundamental I",
+                                              "Fundamental II",
+                                              "Ensino médio",
+                                              "Superior incompleto",
+                                              "Superior completo"))
+
+# RACACORMAE
+dados_sinasc_2$RACACORMAE = factor(dados_sinasc_2$RACACORMAE,
+                                   levels = c(1, 2, 3, 4, 5),
+                                   labels = c("Branca",
+                                              "Preta",
+                                              "Amarela",
+                                              "Parda",
+                                              "Indígena"))
+
+# TPAPRESENT
+dados_sinasc_2$TPAPRESENT = factor(dados_sinasc_2$TPAPRESENT,
+                                   levels = c(1, 2, 3),
+                                   labels = c("Cefálica",
+                                              "Pélvica",
+                                              "Transversa"))
+
+# TPROBSON
+dados_sinasc_2$TPROBSON = factor(dados_sinasc_2$TPROBSON,
+                                 levels = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
+                                 labels = c("Grupo 1",
+                                            "Grupo 2",
+                                            "Grupo 3",
+                                            "Grupo 4",
+                                            "Grupo 5",
+                                            "Grupo 6",
+                                            "Grupo 7",
+                                            "Grupo 8",
+                                            "Grupo 9",
+                                            "Grupo 10"))
+
+# PARIDADE
+dados_sinasc_2$PARIDADE = factor(dados_sinasc_2$PARIDADE,
+                                 levels = c(0, 1),
+                                 labels = c("Nulípara",
+                                            "Multípara"))
+
+# KOTELCHUCK
+dados_sinasc_2$KOTELCHUCK = factor(dados_sinasc_2$KOTELCHUCK,
+                                   levels = c(1, 2, 3, 4, 5),
+                                   labels = c("Não realizou pré-natal",
+                                              "Inadequado",
+                                              "Intermediário",
+                                              "Adequado",
+                                              "Mais que adequado"))
+
+
 
 # Ao terminar a Tarefa 6 commit com a mensagem "script BDEM - SINASC - tarefas 1 a 6" e envie para o repositório Projeto_BDEM_2016
 
