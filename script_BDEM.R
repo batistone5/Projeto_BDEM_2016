@@ -1865,8 +1865,49 @@ write.csv2(
 # dados_sidra_4 para população residente censo 2010 - por faixa etária e sexo - municípios - SIDRA - tabela_1552.csv
 # Atenção que agora os arquivos têm nomes e códigos (com 7 dígitos) dos municípios (e alguns UF)
 
+# População residente estimada - UF e municípios - 2016
+dados_sidra_1 = read.csv2(
+  "população residente estimada - UF e municípios - 2016 - SIDRA - tabela_6579.csv",
+  header = TRUE
+)
+
+# População residente Censo 2010 - UF e municípios - total e por sexo
+dados_sidra_2 = read.csv2(
+  "população residente censo 2010 - UF e municípios - total e por sexo - SIDRA - tabela_1552.csv",
+  header = TRUE
+)
+
+# População residente Censo 2010 - por faixa etária - UF
+dados_sidra_3 = read.csv2(
+  "população residente censo 2010 - por faixa etária - UF - SIDRA - tabela_1552.csv",
+  header = TRUE
+)
+
+# População residente Censo 2010 - por faixa etária e sexo - municípios
+dados_sidra_4 = read.csv2(
+  "população residente censo 2010 - por faixa etária e sexo - municípios - SIDRA - tabela_1552.csv",
+  header = TRUE
+)
+
 # Verificar se a leitura de todos os bancos foi feita corretamente e a estrutura dos dados
 
+# Dimensões dos bancos
+dim(dados_sidra_1)
+dim(dados_sidra_2)
+dim(dados_sidra_3)
+dim(dados_sidra_4)
+
+# Nomes das variáveis
+names(dados_sidra_1)
+names(dados_sidra_2)
+names(dados_sidra_3)
+names(dados_sidra_4)
+
+# Estrutura dos bancos
+str(dados_sidra_1)
+str(dados_sidra_2)
+str(dados_sidra_3)
+str(dados_sidra_4)
 
 # Ao terminar a Tarefa 1 commit com a mensagem "script BDEM - SIDRA - tarefa 1" e envie para o repositório Projeto_BDEM_2016
 
