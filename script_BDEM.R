@@ -1941,6 +1941,25 @@ dados_sidra_4$CODUF = substr(
 # Tarefa 3. Selecionar em dados_sidra_ 1 a dados_sidra_4 a UF de responsabilidade do aluno 
 # e chamar os bancos de dados, respectivamente por sidra_1, sidra_2, sidra_3 e sidra_4
 
+#sidra_1
+sidra_1 = dados_sidra_1[
+  dados_sidra_1$CODUF == "43",
+]
+
+#sidra_2
+sidra_2 = dados_sidra_2[
+  dados_sidra_2$CODUF == "43",
+]
+
+#sidra_3
+sidra_3 = dados_sidra_3[
+  dados_sidra_3$CODMUNRES == 43,
+]
+
+#sidra_4
+sidra_4 = dados_sidra_4[
+  dados_sidra_4$CODUF == "43",
+]
 
 # Ao terminar a Tarefa 3 commit com a mensagem "script BDEM - SIDRA - tarefas 1 a 3" e envie para o repositório Projeto_BDEM_2016
 
