@@ -1966,6 +1966,163 @@ sidra_4 = dados_sidra_4[
 
 # Tarefa 4: Criar um banco de dados, de nome SIDRA_UF.csv (Exemplo: SIDRA_RJ.csv), contendo as variáveis listadas no arquivo “Variáveis - Projeto - Tarefa 4 - SIDRA.pdf”
 
+
+# Criando o banco inicial
+
+SIDRA_RS = data.frame(
+  ANO = 2016,
+  NIVEL = ifelse(sidra_1$CODMUNRES == 43, "UF", "MUNICIPIO"),
+  CODMUNRES = sidra_1$CODMUNRES,
+  POPRE_T = as.numeric(sidra_1$POPRE_T)
+)
+
+
+# Adicionado a população do Censo 2010
+
+SIDRA_RS = merge(
+  SIDRA_RS,
+  sidra_2[, c("CODMUNRES", "POPRC_T", "POPRC_M", "POPRC_F")],
+  by = "CODMUNRES",
+  all.x = TRUE,
+  sort = FALSE
+)
+
+
+# Definindo os grupos de idade
+
+faixas = c(
+  "0 a 4 anos",
+  "5 a 9 anos",
+  "10 a 14 anos",
+  "15 a 19 anos",
+  "20 a 24 anos",
+  "25 a 29 anos",
+  "30 a 34 anos",
+  "35 a 39 anos",
+  "40 a 44 anos",
+  "45 a 49 anos",
+  "50 a 54 anos",
+  "55 a 59 anos",
+  "60 a 64 anos",
+  "65 a 69 anos",
+  "70 a 74 anos",
+  "75 a 79 anos",
+  "80 a 89 anos",
+  "90 a 99 anos",
+  "100 anos ou mais"
+)
+
+grupos = c(
+  rep("15", 3),
+  rep("15_49", 7),
+  rep("50", 9)
+)
+
+
+# Reunindo os dados de idade da UF e dos municípios
+
+idades = rbind(
+  sidra_3[, c("CODMUNRES", "F_IDADE", "POP", "POPF")],
+  sidra_4[, c("CODMUNRES", "F_IDADE", "POP", "POPF")]
+)
+
+# Associando cada faixa etária ao respectivo grupo
+
+idades$GRUPO_IDADE = grupos[
+  match(idades$F_IDADE, faixas)
+]
+
+# Desconsiderando os registros sem faixa etária definida
+
+idades = idades[!is.na(idades$GRUPO_IDADE), ]
+
+
+# Agregando as popilações por localidade e grupo de idade
+
+pop_agregada = aggregate(
+  cbind(POP, POPF) ~ CODMUNRES + GRUPO_IDADE,
+  data = idades,
+  FUN = sum
+)
+
+
+# Transformandoos grupos de idade em colunas
+
+pop_total = reshape(
+  pop_agregada[, c("CODMUNRES", "GRUPO_IDADE", "POP")],
+  idvar = "CODMUNRES",
+  timevar = "GRUPO_IDADE",
+  direction = "wide"
+)
+
+pop_feminina = reshape(
+  pop_agregada[, c("CODMUNRES", "GRUPO_IDADE", "POPF")],
+  idvar = "CODMUNRES",
+  timevar = "GRUPO_IDADE",
+  direction = "wide"
+)
+
+
+# Renomeando as variáveis
+
+names(pop_total) = sub(
+  "^POP\\.",
+  "POPRC_",
+  names(pop_total)
+)
+
+names(pop_feminina) = sub(
+  "^POPF\\.",
+  "POPRC_F_",
+  names(pop_feminina)
+)
+
+
+# Inserindo as populações ao banco final
+
+SIDRA_RS = merge(
+  SIDRA_RS,
+  pop_total,
+  by = "CODMUNRES",
+  all.x = TRUE,
+  sort = FALSE
+)
+
+SIDRA_RS = merge(
+  SIDRA_RS,
+  pop_feminina,
+  by = "CODMUNRES",
+  all.x = TRUE,
+  sort = FALSE
+)
+
+
+# Organizando as linhas e colunas
+
+SIDRA_RS = SIDRA_RS[
+  order(SIDRA_RS$NIVEL != "UF", SIDRA_RS$CODMUNRES),
+]
+
+# Ordenando das variáveis
+
+SIDRA_RS = SIDRA_RS[, c(
+  "ANO",
+  "NIVEL",
+  "CODMUNRES",
+  "POPRE_T",
+  "POPRC_T",
+  "POPRC_M",
+  "POPRC_F",
+  "POPRC_15",
+  "POPRC_15_49",
+  "POPRC_50",
+  "POPRC_F_15",
+  "POPRC_F_15_49",
+  "POPRC_F_50"
+)]
+
+rownames(SIDRA_RS) = NULL
+
 # Ao terminar a Tarefa 4 commit com a mensagem "script BDEM - SIDRA - tarefas 1 a 4" e envie para o repositório Projeto_BDEM_2016
 
 
