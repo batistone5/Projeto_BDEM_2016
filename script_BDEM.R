@@ -2339,8 +2339,27 @@ write.csv(
 # Atenção que o arquivo tem códigos e nomes de municípios e muitos NAs. 
 # Repare que os valores estão com o milhar indicado por ponto, o que não deve acontecer para o R não entender como decimal
 
+dados_sinisa = read.csv2(file = "agua e esgoto - município - 2016.csv",
+                        dec = ",",
+                        fileEncoding = "latin1",
+                        sep = ";")
+
 # Verificar se a leitura de todos os bancos foi feita corretamente e a estrutura dos dados
 # Remover a pontuação de milhar e converter para formato numérico
+
+head(dados_sinisa)
+str(dados_sinisa)
+
+#Removendo os pontos e transformando as colunas em formato numérico
+dados_sinisa$POPR_RA = as.numeric(
+  gsub(".", "", dados_sinisa$POPR_RA, fixed = TRUE)
+)
+
+dados_sinisa$POPR_RE = as.numeric(
+  gsub(".", "", dados_sinisa$POPR_RE, fixed = TRUE)
+)
+
+str(dados_sinisa)
 
 # Ao terminar a Tarefa 1 commit com a mensagem "script BDEM - SINISA - tarefa 1" e envie para o repositório Projeto_BDEM_2016
 
