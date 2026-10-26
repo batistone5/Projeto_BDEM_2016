@@ -2494,11 +2494,107 @@ BDEM_RS$NIVEL[BDEM_RS$CODMUNRES == 430000] = "MUNICIPIO"
 # TMN_T: Taxa de mortalidade neonatal tardia
 # TMI: Taxa de mortalidade infantil
 
+# Criando uma função para calcular as taxas dos indicadores
+calcular_taxa = function(numerador, denominador, multiplicador) {
+  resultado = rep(NA_real_, length(numerador))
+  
+  valido = !is.na(numerador) &
+    !is.na(denominador) &
+    denominador > 0
+  
+  resultado[valido] = round(
+    numerador[valido] / denominador[valido] * multiplicador,
+    2
+  )
+  
+  resultado
+}
+
+# Taxa de fecundidade geral
+BDEM_RS$TFG = calcular_taxa(
+  BDEM_RS$TN,
+  BDEM_RS$POPRC_F_15_49,
+  1000
+)
+
+# Taxa de mortalidade geral
+BDEM_RS$TMG = calcular_taxa(
+  BDEM_RS$TO,
+  BDEM_RS$POPRE_T,
+  1000
+)
+
+# Razão de mortalidade materna
+BDEM_RS$RMM = calcular_taxa(
+  BDEM_RS$TO_MT_P,
+  BDEM_RS$TN,
+  100000
+)
+
+# Taxa de mortalidade materna
+BDEM_RS$TMM = calcular_taxa(
+  BDEM_RS$TO_MT,
+  BDEM_RS$POPRC_F_15_49,
+  100000
+)
+
+# Taxa de mortalidade materna precoce (até 42 dias)
+BDEM_RS$TMM_P = calcular_taxa(
+  BDEM_RS$TO_MT_P,
+  BDEM_RS$POPRC_F_15_49,
+  100000
+)
+
+# Taxa de mortalidade neonatal
+BDEM_RS$TMN = calcular_taxa(
+  BDEM_RS$TO_NT,
+  BDEM_RS$TN,
+  1000
+)
+
+# Taxa de mortalidade neonatal precoce
+BDEM_RS$TMN_P = calcular_taxa(
+  BDEM_RS$TO_NT_P,
+  BDEM_RS$TN,
+  1000
+)
+
+# Taxa de mortalidade neonatal tardia
+BDEM_RS$TMN_T = calcular_taxa(
+  BDEM_RS$TO_NT_T,
+  BDEM_RS$TN,
+  1000
+)
+
+# Taxa de mortalidade infantil
+BDEM_RS$TMI = calcular_taxa(
+  BDEM_RS$TO_NT + BDEM_RS$TO_PNT,
+  BDEM_RS$TN,
+  1000
+)
+
+
 # Conferir o banco BDEM_UF após inserção dos indicadores
+
+dim(BDEM_RS)
+
+names(BDEM_RS)[(ncol(BDEM_RS) - 8):ncol(BDEM_RS)]
+
+head(BDEM_RS[, c(
+  "CODMUNRES", "ANO", "NIVEL",
+  "TFG", "TMG", "RMM", "TMM", "TMM_P",
+  "TMN", "TMN_P", "TMN_T", "TMI"
+)])
+
+str(BDEM_RS[, c(
+  "TFG", "TMG", "RMM", "TMM", "TMM_P",
+  "TMN", "TMN_P", "TMN_T", "TMI"
+)])
 
 # Ao terminar a Tarefa 2 commit com a mensagem "script BDEM - BDEM - tarefas 1 a 2" e envie para o repositório Projeto_BDEM_2016
 
 
 # Tarefa 3: Exportar o banco de dados com o nome BDEM_UF.csv (Exemplo: BDEM_RJ.csv)
+
 # Ao terminar a Tarefa 3 commit com o comentário "dados BDEM_UF 2016 e script - BDEM - tarefas 1 a 3"  e enviar para o repositório Projeto_BDEM_2016
  
